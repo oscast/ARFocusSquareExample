@@ -57,6 +57,8 @@ extension ViewController: ARSCNViewDelegate {
         // Adds the square the first time a new plane is found
         let square = FocusSquare()
         sceneView.scene.rootNode.addChildNode(square)
+        
+        // we keep the focus square reference to change it's position as we move the device
         focusSquare = square
     }
 }
