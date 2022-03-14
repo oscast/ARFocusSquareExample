@@ -13,8 +13,9 @@ class FocusSquare: SCNNode {
     override init() {
         super.init()
         
-        let plane = SCNPlane(width: 0.001, height: 0.001)
-        plane.firstMaterial?.diffuse.contents = UIImage(named: "square")
+        // creates a 10 cms plane
+        let plane = SCNPlane(width: 0.1, height: 0.1)
+        plane.firstMaterial?.diffuse.contents = UIImage(named: "blueSquare")
         plane.firstMaterial?.isDoubleSided = true
         geometry = plane
         

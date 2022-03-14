@@ -52,12 +52,18 @@ class ViewController: UIViewController {
 extension ViewController: ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard anchor is ARPlaneAnchor, self.focusSquare == nil else {return}
+        guard anchor is ARPlaneAnchor else {return}
         
+        if focusSquare == nil {
+            let rootNode = sceneView.scene.rootNode
+            addFocusSquare(to: rootNode)
+        }
+    }
+    
+    func addFocusSquare(to node: SCNNode) {
         // Adds the square the first time a new plane is found
         let square = FocusSquare()
-        sceneView.scene.rootNode.addChildNode(square)
-        
+        node.addChildNode(square)
         // we keep the focus square reference to change it's position as we move the device
         focusSquare = square
     }
