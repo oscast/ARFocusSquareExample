@@ -10,7 +10,7 @@ import ARKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var sceneView: SCNView!
+    @IBOutlet weak var sceneView: ARSCNView!
     
     var focusSquare: FocusSquare?
     
@@ -20,8 +20,30 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        setupSceneView(sceneView: self.sceneView)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Create a session configuration
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        
+        
+    }
+    
+    func setupSceneView(sceneView: SCNView) {
+        sceneView.delegate = self
+        sceneView.showsStatistics = false
+        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
+        sceneView.autoenablesDefaultLighting = true
+    }
+}
+
+extension ViewController: ARSCNViewDelegate {
+    
 }
 
 
