@@ -67,6 +67,18 @@ extension ViewController: ARSCNViewDelegate {
         // we keep the focus square reference to change it's position as we move the device
         focusSquare = square
     }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        guard let square = focusSquare else {return}
+        
+        guard let raycastQuery = sceneView.raycastQuery(from: screenCenter, allowing: .existingPlaneGeometry, alignment: .horizontal) else { return }
+        let results: [ARRaycastResult] = sceneView.session.raycast(raycastQuery)
+        guard let firstResult = results.first else { return }
+        
+        let worldTransform = firstResult.worldTransform
+        let thirdColumnTransform = worldTransform.columns.3
+        square.position = SCNVector3(thirdColumnTransform.x, thirdColumnTransform.y, thirdColumnTransform.z)
+    }
 }
 
 
