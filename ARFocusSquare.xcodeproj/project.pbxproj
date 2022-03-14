@@ -13,6 +13,7 @@
 		F2750ACA27DEF1D700EBC9F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2750AC827DEF1D700EBC9F9 /* Main.storyboard */; };
 		F2750ACC27DEF1D900EBC9F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2750ACB27DEF1D900EBC9F9 /* Assets.xcassets */; };
 		F2750ACF27DEF1D900EBC9F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2750ACD27DEF1D900EBC9F9 /* LaunchScreen.storyboard */; };
+		F2750AD727DEF37A00EBC9F9 /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2750AD627DEF37A00EBC9F9 /* FocusSquare.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		F2750ACB27DEF1D900EBC9F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F2750ACE27DEF1D900EBC9F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2750AD027DEF1D900EBC9F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2750AD627DEF37A00EBC9F9 /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				F2750ACB27DEF1D900EBC9F9 /* Assets.xcassets */,
 				F2750ACD27DEF1D900EBC9F9 /* LaunchScreen.storyboard */,
 				F2750AD027DEF1D900EBC9F9 /* Info.plist */,
+				F2750AD627DEF37A00EBC9F9 /* FocusSquare.swift */,
 			);
 			path = ARFocusSquare;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2750AC727DEF1D700EBC9F9 /* ViewController.swift in Sources */,
+				F2750AD727DEF37A00EBC9F9 /* FocusSquare.swift in Sources */,
 				F2750AC327DEF1D700EBC9F9 /* AppDelegate.swift in Sources */,
 				F2750AC527DEF1D700EBC9F9 /* SceneDelegate.swift in Sources */,
 			);
