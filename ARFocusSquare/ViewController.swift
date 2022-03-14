@@ -7,6 +7,7 @@
 
 import UIKit
 import ARKit
+import SceneKit
 
 class ViewController: UIViewController {
     
@@ -30,8 +31,14 @@ class ViewController: UIViewController {
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
+        sceneView.session.run(configuration)
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
+        sceneView.session.pause()
     }
     
     func setupSceneView(sceneView: SCNView) {
@@ -44,6 +51,14 @@ class ViewController: UIViewController {
 
 extension ViewController: ARSCNViewDelegate {
     
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard anchor is ARPlaneAnchor, self.focusSquare == nil else {return}
+        
+        // Adds the square the first time a new plane is found
+        let square = FocusSquare()
+        sceneView.scene.rootNode.addChildNode(square)
+        focusSquare = square
+    }
 }
 
 
