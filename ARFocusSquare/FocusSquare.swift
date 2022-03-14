@@ -10,6 +10,12 @@ import ARKit
 
 class FocusSquare: SCNNode {
     
+    var isValid: Bool = false {
+        didSet {
+            geometry?.firstMaterial?.diffuse.contents = self.isValid ? UIImage(named: "blueSquare") : UIImage(named: "redSquare")
+        }
+    }
+    
     override init() {
         super.init()
         

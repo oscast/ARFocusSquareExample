@@ -73,11 +73,15 @@ extension ViewController: ARSCNViewDelegate {
         
         guard let raycastQuery = sceneView.raycastQuery(from: screenCenter, allowing: .existingPlaneGeometry, alignment: .horizontal) else { return }
         let results: [ARRaycastResult] = sceneView.session.raycast(raycastQuery)
-        guard let firstResult = results.first else { return }
+        guard let firstResult = results.first else {
+            square.isValid = false
+            return
+        }
         
         let worldTransform = firstResult.worldTransform
         let thirdColumnTransform = worldTransform.columns.3
         square.position = SCNVector3(thirdColumnTransform.x, thirdColumnTransform.y, thirdColumnTransform.z)
+        square.isValid = true
     }
 }
 
