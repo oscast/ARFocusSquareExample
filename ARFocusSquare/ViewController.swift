@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var focusSquare: FocusSquare?
     
     var screenCenter: CGPoint?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,6 +51,30 @@ class ViewController: UIViewController {
         sceneView.showsStatistics = false
         sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         sceneView.autoenablesDefaultLighting = true
+    }
+    
+    func validateFocusPLane() {
+        guard let square = focusSquare, let center = screenCenter else { return }
+        
+        // We search for a valid existing plane, instead of a infinite plane
+        // Even if the square keeps moving on an infinite plane, if an existing plane is not raycasted
+        // The Square will turn red.
+        guard let raycastQuery = sceneView.raycastQuery(from: center, allowing: .existingPlaneGeometry, alignment: .horizontal) else {
+            square.isValid = false
+            return
+        }
+        
+        let raycastResults: [ARRaycastResult] = sceneView.session.raycast(raycastQuery)
+        
+        if let firstResult = raycastResults.first,
+           let anchor = firstResult.anchor,
+           anchor is ARPlaneAnchor {
+            // is the raycast finds a plane, that means you can safely put a AR model there.
+            focusSquare?.isValid = true
+        } else {
+            // The square will turn red and you won't be able to set a model or at least you shoudln't
+            focusSquare?.isValid = false
+        }
     }
 }
 
@@ -89,7 +113,11 @@ extension ViewController: ARSCNViewDelegate {
         let worldTransform = firstResult.worldTransform
         let thirdColumnTransform = worldTransform.columns.3
         square.position = SCNVector3(thirdColumnTransform.x, thirdColumnTransform.y, thirdColumnTransform.z)
-        square.isValid = true
+        
+        
+        DispatchQueue.main.async {
+            self.validateFocusPLane()
+        }
     }
 }
 
