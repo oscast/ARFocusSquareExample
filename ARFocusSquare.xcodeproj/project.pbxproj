@@ -14,6 +14,7 @@
 		F2750ACC27DEF1D900EBC9F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2750ACB27DEF1D900EBC9F9 /* Assets.xcassets */; };
 		F2750ACF27DEF1D900EBC9F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2750ACD27DEF1D900EBC9F9 /* LaunchScreen.storyboard */; };
 		F2750AD727DEF37A00EBC9F9 /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2750AD627DEF37A00EBC9F9 /* FocusSquare.swift */; };
+		F2B772EA27E0EACD001D3745 /* ARAssets.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F2B772E927E0EACC001D3745 /* ARAssets.scnassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		F2750ACE27DEF1D900EBC9F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2750AD027DEF1D900EBC9F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2750AD627DEF37A00EBC9F9 /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
+		F2B772E927E0EACC001D3745 /* ARAssets.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = ARAssets.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				F2750AC627DEF1D700EBC9F9 /* ViewController.swift */,
 				F2750AC827DEF1D700EBC9F9 /* Main.storyboard */,
 				F2750ACB27DEF1D900EBC9F9 /* Assets.xcassets */,
+				F2B772E927E0EACC001D3745 /* ARAssets.scnassets */,
 				F2750ACD27DEF1D900EBC9F9 /* LaunchScreen.storyboard */,
 				F2750AD027DEF1D900EBC9F9 /* Info.plist */,
 				F2750AD627DEF37A00EBC9F9 /* FocusSquare.swift */,
@@ -129,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2750ACF27DEF1D900EBC9F9 /* LaunchScreen.storyboard in Resources */,
+				F2B772EA27E0EACD001D3745 /* ARAssets.scnassets in Resources */,
 				F2750ACC27DEF1D900EBC9F9 /* Assets.xcassets in Resources */,
 				F2750ACA27DEF1D700EBC9F9 /* Main.storyboard in Resources */,
 			);
