@@ -15,13 +15,12 @@ class ViewController: UIViewController {
     
     var focusSquare: FocusSquare?
     
-    var screenCenter: CGPoint {
-        view.center
-    }
+    var screenCenter: CGPoint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        screenCenter = view.center
         setupSceneView(sceneView: self.sceneView)
     }
     
@@ -39,6 +38,12 @@ class ViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         sceneView.session.pause()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let viewCenter = CGPoint(x: size.width / 2, y: size.height / 2)
+        screenCenter = viewCenter
     }
     
     func setupSceneView(sceneView: SCNView) {
@@ -66,12 +71,15 @@ extension ViewController: ARSCNViewDelegate {
         node.addChildNode(square)
         // we keep the focus square reference to change it's position as we move the device
         focusSquare = square
+        focusSquare?.isValid = false
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        guard let square = focusSquare else {return}
+        guard let square = focusSquare,
+              let center = screenCenter,
+              let raycastQuery = sceneView.raycastQuery(from: center, allowing: .existingPlaneInfinite, alignment: .horizontal)
+        else { return }
         
-        guard let raycastQuery = sceneView.raycastQuery(from: screenCenter, allowing: .existingPlaneGeometry, alignment: .horizontal) else { return }
         let results: [ARRaycastResult] = sceneView.session.raycast(raycastQuery)
         guard let firstResult = results.first else {
             square.isValid = false
