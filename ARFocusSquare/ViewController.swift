@@ -76,6 +76,18 @@ class ViewController: UIViewController {
             focusSquare?.isValid = false
         }
     }
+    
+    @IBAction func addModel() {
+        guard let square = focusSquare, square.isValid else { return }
+        guard let scene = SCNScene(named: "ARAssets.scnassets/Vase.scn"),
+              let vaseNode = scene.rootNode.childNode(withName: "Vase", recursively: false)
+        else { return }
+        
+        vaseNode.position = square.position
+        
+        sceneView.scene.rootNode.addChildNode(vaseNode)
+    }
+    
 }
 
 extension ViewController: ARSCNViewDelegate {
