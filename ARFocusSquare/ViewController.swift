@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var sceneView: ARSCNView!
     
+    var addedModels: [SCNNode] = []
+    
     var focusSquare: FocusSquare?
     
     var screenCenter: CGPoint?
@@ -49,12 +51,21 @@ class ViewController: UIViewController {
     func setupSceneView(sceneView: SCNView) {
         sceneView.delegate = self
         sceneView.showsStatistics = false
-        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
+        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         sceneView.autoenablesDefaultLighting = true
     }
     
     func validateFocusPLane() {
-        guard let square = focusSquare, let center = screenCenter else { return }
+        guard let square = focusSquare,
+              let center = screenCenter,
+              let pointOfView = sceneView.pointOfView else {return}
+        
+        if addedModels.first(where: { (node) -> Bool in
+            return sceneView.isNode(node, insideFrustumOf: pointOfView)
+        }) != nil {
+            square.isValid = false
+            return
+        }
         
         // We search for a valid existing plane, instead of a infinite plane
         // Even if the square keeps moving on an infinite plane, if an existing plane is not raycasted
@@ -86,6 +97,7 @@ class ViewController: UIViewController {
         vaseNode.position = square.position
         
         sceneView.scene.rootNode.addChildNode(vaseNode)
+        addedModels.append(vaseNode)
     }
     
 }
@@ -112,8 +124,10 @@ extension ViewController: ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         guard let square = focusSquare,
-              let center = screenCenter,
-              let raycastQuery = sceneView.raycastQuery(from: center, allowing: .existingPlaneInfinite, alignment: .horizontal)
+              let center = screenCenter
+        else { return }
+        
+        guard let raycastQuery = sceneView.raycastQuery(from: center, allowing: .existingPlaneInfinite, alignment: .horizontal)
         else { return }
         
         let results: [ARRaycastResult] = sceneView.session.raycast(raycastQuery)
@@ -121,6 +135,8 @@ extension ViewController: ARSCNViewDelegate {
             square.isValid = false
             return
         }
+        
+        
         
         let worldTransform = firstResult.worldTransform
         let thirdColumnTransform = worldTransform.columns.3
